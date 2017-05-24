@@ -1,10 +1,11 @@
 # emerg
 ## Purpose
-Playing around with loadable kernel modules. Got the idea from @jarun keysniffer and @hephaest0s usbkill to make a tool that willbe always runing in the background (from kernel-space) and when to type a "secret" phrase it will execute whatever to specified.
+Playing around with loadable kernel modules. Got the idea from @jarun keysniffer and @hephaest0s usbkill to make a tool that will be always runing in the background (from kernel-space) and when you type a "secret" phrase it will execute whatever was specified. 
 _NOTE: this works with standard terminals (tty) not with pseudo (pty)._
 
 ## Usage
 Is simple, actually, but you will need to have superuser access to the GNU/Linux machine.
+
 Clone the code:
 ```bash
     $ git clone https://github.com/cedriczirtacic/emerg.git
