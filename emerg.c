@@ -58,7 +58,7 @@ static int shell_exec(char *e) {
     matches = 0; //start all over again
     
     struct subprocess_info *info;
-    char *argv[] = {e, NULL};
+    char *argv[] = {"/bin/sh", "-c", e, NULL};
 
 #if LINUX_VERSION_CODE > KERNEL_VERSION(4, 0, 0)
     info = call_usermodehelper_setup(argv[0], argv, env, GFP_ATOMIC, NULL, NULL, NULL);
@@ -72,7 +72,12 @@ static int shell_exec(char *e) {
         return -ENOMEM;
     }
     //lets execute
-    return call_usermodehelper_exec(info, UMH_NO_WAIT);
+    int ret = call_usermodehelper_exec(info, UMH_NO_WAIT);
+#ifdef DEBUG
+    if (ret != 0)
+        printk(KERN_INFO "return value: %d", ret);
+#endif
+    return ret;
 }
 
 int _kb_call(struct notifier_block *nb, unsigned long code, void *p) {
