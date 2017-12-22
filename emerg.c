@@ -52,7 +52,9 @@ static char *env[] = {
 };
 
 static int shell_exec(char *e) {
+#ifdef DEBUG
     printk(KERN_INFO "executing %s", e);
+#endif
     matches = 0; //start all over again
     
     struct subprocess_info *info;
@@ -64,7 +66,9 @@ static int shell_exec(char *e) {
     info = call_usermodehelper_setup(argv[0], argv, env, GFP_ATOMIC);
 #endif
     if (info == NULL){
+#ifdef DEBUG
         printk(KERN_ERR "error! *info struct is NULL");
+#endif
         return -ENOMEM;
     }
     //lets execute
@@ -95,8 +99,9 @@ static struct notifier_block nblock = {
 };
 
 static int __init emerg_init(void) {
+#ifdef DEBUG
     printk(KERN_INFO "emerg loaded...");
-
+#endif
     if (phrase == NULL || exec == NULL)
         return -EINVAL;
 
